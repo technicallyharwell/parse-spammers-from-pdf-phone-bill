@@ -28,10 +28,13 @@ dependencies with a CV lib*
 During the scanning process, some properties are collected for premature optimization, e.g. `end/start_page_key_index`
 
 Search space flow:
+
 ![search space flow](images/Parse_spam_callers_flowchart.drawio.png)
 
 Extract call records flow:
+
 ![extract call records flow](images/Parse_spam_callers_flowchart_2.drawio.png)
 
 Transform and export flow:
+
 ![transform and export flow](images/Parse_spam_callers_flowchart_3.drawio.png)
