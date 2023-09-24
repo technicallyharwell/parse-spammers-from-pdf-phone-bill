@@ -5,6 +5,8 @@ Parse the .pdf of your Verizon phone bill and export likely spam calls to a .csv
 Requires an installation of Java 8+ added to the $PATH, and Python 3.8+.
 Developed and validated on Linux and Windows systems running Java8 and Python3.11
 
+For API integrations with `numverify`, a free API key is required. https://numverify.com/
+
 - `pip install -r requirements.txt`
 - Download .pdf of phone bill and place in `input/` directory
 - Configure pdf filename, search number, and whitelist in `.env`
@@ -38,3 +40,7 @@ Extract call records flow:
 Transform and export flow:
 
 ![transform and export flow](images/Parse_spam_callers_flowchart_3.drawio.png)
+
+Numverify integration flow:
+
+![numverify integration flow](images/PDF_parser_API_integration.drawio.png)
