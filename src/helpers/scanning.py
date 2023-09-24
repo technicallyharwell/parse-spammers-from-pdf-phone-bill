@@ -131,7 +131,10 @@ class DocumentScanner:
         Returns:
             dataframe slice of section_header_rows before key_index
         """
-        return df[0][key_index - self.section_header_rows:key_index + 1]
+        if "." in self.search_number:
+            return df[0][key_index - 2:key_index + self.section_header_rows]
+        else:
+            return df[0][key_index:key_index + self.section_header_rows]
 
     def _find_key_indices_in_df(self, df) -> list:
         """
