@@ -6,6 +6,7 @@ class CallDataLoader:
         self.extractor: CallDataExtractor = kwargs.get('extractor', None)
         self.white_listed_numbers = kwargs.get('white_listed_numbers', None)
         self.keep_columns = ['Date', 'Time', 'Number']
+        self.file_name = None
 
         if self.extractor is None:
             raise RuntimeError("CallDataLoader requires a CallDataExtractor")
@@ -39,4 +40,10 @@ class CallDataLoader:
     def _export_to_csv(self):
         csv_filename = 'output/' + self.extractor.scanner.pdf_path.split('/')[-1].split('.')[0]
         csv_filename += '_' + self.extractor.scanner.search_number.replace('.', '_') + '.csv'
+        self.file_name = csv_filename
         self.extractor.result_df.to_csv(csv_filename, index=False)
+
+    def export_carriers(self, carrier_list: list):
+        self.extractor.result_df['Carrier'] = carrier_list
+        carrier_filename = self.file_name.split('.')[0] + '_carriers.csv'
+        self.extractor.result_df.to_csv(carrier_filename, index=False)
