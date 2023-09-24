@@ -5,10 +5,11 @@ from dotenv import load_dotenv
 from src.helpers.scanning import DocumentScanner
 from src.helpers.extracting import CallDataExtractor
 from src.helpers.loading import CallDataLoader
+from src.helpers.integrating import ExternalIntegrator
 
 load_dotenv()
 
-WHITELISTED_NUMBERS = list(os.getenv("WHITELISTED_NUMBERS").split(",")) or None
+WHITELISTED_NUMBERS = list(os.getenv("WHITELISTED_NUMBERS").split(","))
 
 if __name__ == "__main__":
     # Establish the search space
@@ -36,3 +37,11 @@ if __name__ == "__main__":
         white_listed_numbers=WHITELISTED_NUMBERS
     )
     loader.export()
+
+    # Integrate the call data with carrier information
+    integrator = ExternalIntegrator(
+        api_key=os.getenv("NUMVERIFY_API_TOKEN"),
+        nums=loader.extractor.result_df['Number'].tolist()
+    )
+    integrator.find_carriers()
+    loader.export_carriers(carrier_list=integrator.df_num_accumulator)
